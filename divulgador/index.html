@@ -1,1 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
 
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Turma do 15</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        #erro {
+            font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+            padding: 24px;
+            color: #b00020;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="erro" style="display:none">
+        Link inválido ou expirado. Solicite um novo link ao supervisor.
+    </div>
+
+    <iframe
+        id="frameDivulgador"
+        title="Divulgador"
+        allow="geolocation; fullscreen"
+        referrerpolicy="no-referrer">
+    </iframe>
+
+    <script>
+        (function () {
+            // Le o token do #hash (ex.: .../divulgador/#ABC123) ou de ?t=ABC123
+            var token = (location.hash || '').replace(/^#/, '').trim();
+            if (!token) {
+                var m = location.search.match(/[?&]t=([^&]+)/);
+                if (m) token = decodeURIComponent(m[1]);
+            }
+
+            var frame = document.getElementById('frameDivulgador');
+            var erro = document.getElementById('erro');
+
+            if (!token) {
+                frame.style.display = 'none';
+                erro.style.display = 'block';
+                return;
+            }
+
+            frame.src = 'https://crmsetorial.com.br/divulgador/' + encodeURIComponent(token);
+        })();
+    </script>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"f0f03d0605bf45f1a3b17cf7d5e6861f","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
